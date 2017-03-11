@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1106C07A-BB9D-4616-A826-7CA3B299307A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ShaderPlayground</RootNamespace>
+    <AssemblyName>ShaderPlayground</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MonoGamePlatform>Windows</MonoGamePlatform>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\$(MonoGamePlatform)\$(Platform)\$(Configuration)\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\$(MonoGamePlatform)\$(Platform)\$(Configuration)\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Controls\Input.cs" />
+    <Compile Include="HelperSuite\ContentLoader\ThreadSafeContentManager.cs" />
+    <Compile Include="HelperSuite\GUIHelper\GUIContentLoader.cs" />
+    <Compile Include="HelperSuite\GUIRenderer\GUIRenderer.cs" />
+    <Compile Include="HelperSuite\GUIRenderer\Helper\MngStringBuilder.cs" />
+    <Compile Include="HelperSuite\GUIRenderer\Helper\QuadRendererColor.cs" />
+    <Compile Include="HelperSuite\GUI\GUIBlock.cs" />
+    <Compile Include="HelperSuite\GUI\GUICanvas.cs" />
+    <Compile Include="HelperSuite\GUI\GUIColorPicker.cs" />
+    <Compile Include="HelperSuite\GUI\GUIList.cs" />
+    <Compile Include="HelperSuite\GUI\GuiListToggle.cs" />
+    <Compile Include="HelperSuite\GUI\GuiListToggleScroll.cs" />
+    <Compile Include="HelperSuite\GUI\GuiSliderFloat.cs" />
+    <Compile Include="HelperSuite\GUI\GUIStyle.cs" />
+    <Compile Include="HelperSuite\GUI\GUITextBlock.cs" />
+    <Compile Include="HelperSuite\GUI\GUITextBlockButton.cs" />
+    <Compile Include="HelperSuite\GUI\GuiTextBlockLoadDialog.cs" />
+    <Compile Include="HelperSuite\GUI\GUITextBlockToggle.cs" />
+    <Compile Include="Helpers\FastRand.cs" />
+    <Compile Include="Helpers\MeshLoader.cs" />
+    <Compile Include="Helpers\QuadRenderer.cs" />
+    <Compile Include="Screens\Pixelizer\PixelizerGUILogic.cs" />
+    <Compile Include="Screens\Pixelizer\PixelizerLogic.cs" />
+    <Compile Include="Screens\Pixelizer\PixelizerRenderer.cs" />
+    <Compile Include="Screens\Pixelizer\ShaderModules\PixelizerShader.cs" />
+    <Compile Include="Screens\RadialBlur\RadialBlurGUILogic.cs" />
+    <Compile Include="Screens\Debug\DebugScreen.cs" />
+    <Compile Include="Screens\Debug\LinkedListFrameTime.cs" />
+    <Compile Include="Screens\RadialBlur\RadialBlurLogic.cs" />
+    <Compile Include="Screens\RadialBlur\RadialBlurRenderer.cs" />
+    <Compile Include="Screens\MainMenu\MainMenuLogic.cs" />
+    <Compile Include="Screens\RadialBlur\ShaderModules\RadialBlurShader.cs" />
+    <Compile Include="Screens\ScreenManager.cs" />
+    <Compile Include="Screens\TransitionManager.cs" />
+    <Compile Include="Settings\GameSettings.cs" />
+    <Compile Include="Settings\GameStats.cs" />
+    <Compile Include="ShaderPlayground.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\mgcb\Assimp64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\AssimpNet.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\AssimpNet.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\ATI.TextureConverter.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\CppNet.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\FreeImage.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\FreeImageNET.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\freetype6.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\libmojoshader_64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\MGCB.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\MGCB.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\MonoGame.Framework.Content.Pipeline.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\MonoGame.Framework.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\Nvidia.TextureTools.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\nvtt.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\PVRTexLibNET.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\PVRTexLibWrapper.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mgcb\runtimetexture.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="Content\Content.mgcb" />
+    <None Include="app.manifest" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
