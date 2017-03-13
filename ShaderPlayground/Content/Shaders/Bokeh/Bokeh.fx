@@ -123,7 +123,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 
 float4 PixelShaderFunctionTex(VertexShaderOutputSimple input) : COLOR
 {
-	return Screen.Sample(bilinearSampler, input.TexCoord) * Brightness;
+	return Screen.Sample(bilinearSampler, input.TexCoord)* Brightness;
 }
 
 

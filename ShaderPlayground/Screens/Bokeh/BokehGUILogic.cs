@@ -77,6 +77,13 @@ namespace ShaderPlayground.Screens.RadialBlur
                 SliderValue = (int)renderer.GetType().GetField("Downsize").GetValue(renderer)
             });
 
+            baseList.AddElement(new GUITextBlockToggle(Vector2.Zero, new Vector2(200, 25), "32-bit precision", GUIRenderer.MonospaceFont, Color.Gray, Color.White)
+            {
+                ToggleObject = renderer,
+                ToggleField = renderer.GetType().GetField("FullPrecision"),
+                Toggle = renderer.FullPrecision,
+            });
+
             baseList.AddElement(new GUIBlock(Vector2.Zero, new Vector2(200, 25), Color.DimGray));
 
             baseList.AddElement(new GUITextBlock(Vector2.Zero, new Vector2(200, 25), "Bokeh Shape: ", GUIRenderer.MonospaceFont, Color.Gray, Color.White));

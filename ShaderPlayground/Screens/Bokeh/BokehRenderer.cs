@@ -31,6 +31,7 @@ namespace ShaderPlayground.Screens.RadialBlur
         public int Downsize = 1;
 
         public BokehShapes BokehShape = BokehShapes.Pentagon;
+        public bool FullPrecision = false;
 
         public enum BokehShapes
         {
@@ -72,7 +73,7 @@ namespace ShaderPlayground.Screens.RadialBlur
             
             //_spriteBatch.End();
 
-            _bokehShader.Draw(input, GetBokehTex(), outputRT, Brightness * 0.1f, BokehSize, 1 << Downsize);
+            _bokehShader.Draw(input, GetBokehTex(), outputRT, Brightness * 0.1f, BokehSize, 1 << Downsize, FullPrecision);
 
         }
 

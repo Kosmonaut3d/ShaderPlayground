@@ -53,6 +53,7 @@ namespace ShaderPlayground.Screens.Bokeh.ShaderModules
         private float _bokehSize = -1f;
         private float _bokehSizeBrightness = 1;
         private int _downsize = -1;
+        private bool _fullPrecision = false;
         private bool _downsizeChanged = false;
         private RasterizerState WireFrameRasterizer;
 
@@ -135,7 +136,7 @@ namespace ShaderPlayground.Screens.Bokeh.ShaderModules
             });
         }
 
-        public void Draw(Texture2D tex, Texture2D shape, RenderTarget2D rt, float brightness, float bokehSize, int downsize)
+        public void Draw(Texture2D tex, Texture2D shape, RenderTarget2D rt, float brightness, float bokehSize, int downsize, bool fullPrecision)
         {
             InitializeParameters();
             
@@ -150,10 +151,17 @@ namespace ShaderPlayground.Screens.Bokeh.ShaderModules
                 {
                     _downsize = downsize;
                     _downsizeChanged = true;
-                    CreateRT(downsize);
+                    _fullPrecision = fullPrecision;
+                    CreateRT(downsize, fullPrecision);
                 }
 
                 CreateQuads(_bokehSize, downsize);
+            }
+
+            if (_fullPrecision != fullPrecision)
+            {
+                _fullPrecision = fullPrecision;
+                CreateRT(downsize, fullPrecision);
             }
 
             ScreenTexture = tex;
@@ -181,7 +189,7 @@ namespace ShaderPlayground.Screens.Bokeh.ShaderModules
             _quadRenderer.RenderQuad(_graphicsDevice, -Vector2.One, Vector2.One);
         }
 
-        private void CreateRT(int scale)
+        private void CreateRT(int scale, bool fullPrecision)
         {
             if (_renderTarget0 != null)
             {
@@ -191,12 +199,17 @@ namespace ShaderPlayground.Screens.Bokeh.ShaderModules
             int w = GameSettings.g_ScreenWidth / scale;
             int h = GameSettings.g_ScreenHeight / scale;
 
-            _renderTarget0 = new RenderTarget2D(_graphicsDevice, w, h, false, SurfaceFormat.HalfVector4, DepthFormat.None, 0, RenderTargetUsage.DiscardContents);
+            _renderTarget0 = new RenderTarget2D(_graphicsDevice, w, h, false, fullPrecision ?  SurfaceFormat.Vector4 : SurfaceFormat.HalfVector4, DepthFormat.None, 0, RenderTargetUsage.DiscardContents);
             
         }
 
         private void CreateQuads(float size, int downsample)
         {
+            //Create one giant vertexbuffer that holds all the quads for the pixels
+            //The quads are created with the final size already
+            //Alternatively one could just pass the center position of the quad to all vertices and expand inside the vertex shader (see: GPU particle sample for xna)
+            //This would make scaling trivial, since nothing has to be recomputed on the CPU
+            //But it would increase the runtime cost per quad slightly.
 
             int xsize = 1280;
             int ysize = 800;
