@@ -22,6 +22,7 @@ namespace ShaderPlayground.Screens.RadialBlur
         private GUIList baseList;
         private GUITextBlock _splitChance;
         private GUITextBlock _endChance;
+        private GUITextBlock _scale;
 
         private PixelizerRenderer _renderer;
 
@@ -67,6 +68,14 @@ namespace ShaderPlayground.Screens.RadialBlur
                 SliderValue = (float)renderer.GetType().GetField("EndChance").GetValue(renderer)
             });
 
+            baseList.AddElement(_scale = new GUITextBlock(Vector2.Zero, new Vector2(200, 25), "Scale: " + renderer.Scale, GUIRenderer.MonospaceFont, Color.Gray, Color.White));
+            baseList.AddElement(new GuiSliderInt(Vector2.Zero, new Vector2(200, 35), 0, 3, 1, Color.Gray, Color.White)
+            {
+                SliderObject = renderer,
+                SliderField = renderer.GetType().GetField("Scale"),
+                SliderValue = (int)renderer.GetType().GetField("Scale").GetValue(renderer)
+            });
+
             baseList.AddElement(new GUIColorPicker(Vector2.Zero, new Vector2(200,200), Color.Gray, GUIRenderer.MonospaceFont)
             {
                 ReferenceObject = renderer,
@@ -109,6 +118,10 @@ namespace ShaderPlayground.Screens.RadialBlur
                 _endChance.Text.Clear();
                 _endChance.Text.Append("End Chance: ");
                 _endChance.Text.Concat(_renderer.EndChance, 2);
+
+                _scale.Text.Clear();
+                _scale.Text.Append("Scale: 1 / ");
+                _scale.Text.Concat(1 << _renderer.Scale);
                 //_samplesBlock.Text.Clear();
                 //_samplesBlock.Text.Append("Samples: ");
                 //_samplesBlock.Text.Concat(_renderer.BlurSamples);

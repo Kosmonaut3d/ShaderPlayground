@@ -54,10 +54,14 @@ namespace ShaderPlayground.Controls
         {
             return mouseState.LeftButton == ButtonState.Pressed && mouseLastState.LeftButton == ButtonState.Released;
         }
-
+        
         public static bool IsLMBPressed()
         {
             return mouseState.LeftButton == ButtonState.Pressed;
+        }
+        public static bool IsRMBPressed()
+        {
+            return mouseState.RightButton == ButtonState.Pressed;
         }
 
         public static bool WasKeyReleased(Keys key)

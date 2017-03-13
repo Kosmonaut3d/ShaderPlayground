@@ -63,10 +63,15 @@
     <Compile Include="Helpers\FastRand.cs" />
     <Compile Include="Helpers\MeshLoader.cs" />
     <Compile Include="Helpers\QuadRenderer.cs" />
+    <Compile Include="Screens\Bokeh\ShaderModules\QuadRenderer.cs" />
     <Compile Include="Screens\Pixelizer\PixelizerGUILogic.cs" />
     <Compile Include="Screens\Pixelizer\PixelizerLogic.cs" />
     <Compile Include="Screens\Pixelizer\PixelizerRenderer.cs" />
     <Compile Include="Screens\Pixelizer\ShaderModules\PixelizerShader.cs" />
+    <Compile Include="Screens\Bokeh\BokehGUILogic.cs" />
+    <Compile Include="Screens\Bokeh\BokehLogic.cs" />
+    <Compile Include="Screens\Bokeh\BokehRenderer.cs" />
+    <Compile Include="Screens\Bokeh\ShaderModules\BokehShader.cs" />
     <Compile Include="Screens\RadialBlur\RadialBlurGUILogic.cs" />
     <Compile Include="Screens\Debug\DebugScreen.cs" />
     <Compile Include="Screens\Debug\LinkedListFrameTime.cs" />

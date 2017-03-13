@@ -114,7 +114,7 @@ namespace ShaderPlayground.Screens.RadialBlur.ShaderModules
             });
         }
 
-        public void DrawTexture(RenderTarget2D tex, RenderTarget2D rt)
+        private void DrawTexture(RenderTarget2D tex, RenderTarget2D rt)
         {
             _graphicsDevice.SetRenderTarget(rt);
             ScreenTexture = tex;

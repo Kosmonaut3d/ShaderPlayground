@@ -6,33 +6,33 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Texture2D Screen;
+Texture2D Shape;
+
+float Timer = 0;
 
 float AspectRatio = 1.6f;
 
-float2 Resolution = float2(1280, 800);
+float2 ImageTexCoord = float2(0.5f, 0.5f);
 
-float2 MousePosition = int2(-1, -1);
-
-float3 LineColor = float3(0, 1, 0);
-
-float SplitChance = 0.03f;
-
-float EndChance = 0.95f;
-
-float Time = 0;
-
-
-float rows = 10;
-float cols = 20;
+float Brightness = 0.01f;
 
 SamplerState texSampler
 {
-    Texture = (Screen);
+    
     AddressU = CLAMP;
     AddressV = CLAMP;
     MagFilter = POINT;
     MinFilter = POINT;
     Mipfilter = POINT;
+};
+
+SamplerState bilinearSampler
+{
+	AddressU = CLAMP;
+	AddressV = CLAMP;
+	MagFilter = LINEAR;
+	MinFilter = LINEAR;
+	Mipfilter = LINEAR;
 };
  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,12 +43,26 @@ struct VertexShaderInput
 {
     float3 Position : POSITION0;
     float2 TexCoord : TEXCOORD0;
+	float2 TexCoord2 : TEXCOORD1;
 };
 
 struct VertexShaderOutput
 {
     float4 Position : POSITION0;
     float2 TexCoord : TEXCOORD0;
+	float3 Color : COLOR;
+};
+
+struct VertexShaderInputSimple
+{
+	float3 Position : POSITION0;
+	float2 TexCoord : TEXCOORD0;
+};
+
+struct VertexShaderOutputSimple
+{
+	float4 Position : POSITION0;
+	float2 TexCoord : TEXCOORD0;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -64,7 +78,19 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
     VertexShaderOutput output;
     output.Position = float4(input.Position, 1);
     output.TexCoord = input.TexCoord;
+	//output.TexCoord2 = input.TexCoord2;
+	output.Color = Screen.SampleLevel(texSampler, input.TexCoord2, 0).rgb;
+
     return output;
+
+}
+
+VertexShaderOutputSimple VertexShaderFunctionSimple(VertexShaderInputSimple input)
+{
+	VertexShaderOutputSimple output;
+	output.Position = float4(input.Position, 1);
+	output.TexCoord = input.TexCoord;
+	return output;
 
 }
 
@@ -82,116 +108,30 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 {
-	//int2 texCoordInt = float2(input.TexCoord * Resolution);
+	const float shape_size = 100;
 
-	//float4 color = Screen.Load(int3(texCoordInt,0));
+	//float4 color = Screen.Sample(texSampler, input.TexCoord2);
+
 	
-	float4 color = Screen.Sample(texSampler, input.TexCoord);
+	float shape = Shape.Load(int3(input.TexCoord * shape_size, 0)).r;
 
-	return color;
+	//float luma = color.r * 0.299 + 0.587 * color.g + 0.11f * color.b;
+	
+	return float4(input.Color * shape, 1/* luma * 0.5f*/);
 }
 
 
-
-float4 PixelShaderFunctionTex(VertexShaderOutput input) : COLOR
+float4 PixelShaderFunctionTex(VertexShaderOutputSimple input) : COLOR
 {
-	/*float invrows = 1 / rows;
-	float invcols = 1 / cols;
-	float2 localTexCoords = float2(input.TexCoord.x % invcols, input.TexCoord.y % invrows) * float2(cols, rows);
-
-	if (localTexCoords.x + 1-localTexCoords.y > 1) return Screen.Sample(texSampler, input.TexCoord).rgba;
-	*/
-
-	//Idea -> encode bits
-	//1 means goes vertical
-	//0 1 means goes horizontal
-	//0 0 means empty
-	// if (a * 255) > 0 && < 64) it's still colored!
-
-	const float frac64 = 1/256.0f; // 1/64
-
-	const int2 offsets[] = {
-		int2(1,0),
-		int2(-1,0),
-		int2(0,1),
-		int2(0,-1),
-	};
-	
-
-	int2 texCoordInt = float2(input.TexCoord * Resolution);
-
-	float4 color = Screen.Load(int3(texCoordInt,0));
-
-	//Timer -> decay
-
-
-	//first delete the first values
-	if (color.a > 0)
-	{
-		if (color.a > 0.25)//first significant bits are filled
-		{
-			color.a = 0.25f;
-		}
-		
-		color.a -= frac64;
-
-		color = float4(LineColor*color.a*4, color.a);
-
-		//End here!
-		return color;
-	}
-
-	//Alpha value stores direction and time
-
-	//If we register a mouse click, draw pixel
-	if (texCoordInt.x == MousePosition.x && texCoordInt.y == MousePosition.y)
-	{
-		return float4(LineColor, 1);
-	}
-
-	//Read neighbor
-	float random = (frac(sin(dot(input.TexCoord, float2(15.8989f, 76.132f) * (1.0f+frac(Time)))) * 46336.23745f));
-
-	if (random > EndChance) return float4(0, 0, 0, 0);
-
-	//Horizontal
-	[loop]
-	for (int i = 0; i < 2; i++)
-	{
-		float4 neighbor = Screen.Load(int3(texCoordInt + offsets[i], 0));
-
-		//int alpha = neighbor.a * 255;
-
-		//////Check first bit
-		//if (alpha >> 7 > 0)
-		if(neighbor.a > 0.5f)
-			color = float4(LineColor, random > SplitChance ? 0.6f : 0.3f);
-	}
-
-	//Vertical 
-
-	[loop]
-	for (int j = 2; j < 4; j++)
-	{
-		float4 neighbor = Screen.Load(int3(texCoordInt + offsets[j], 0));
-
-		//int alpha = neighbor.a * 255;
-
-		//////Check first bit
-		//if (alpha >> 7 > 0)
-		if ((neighbor.a > 0.25f && neighbor.a < 0.5f) || neighbor.a >=1)
-			color = float4(LineColor, random > SplitChance ? 0.3f : 0.6f);
-	}
-
-
-	return color;
+	return Screen.Sample(bilinearSampler, input.TexCoord) * Brightness;
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//  TECHNIQUES
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-technique Texture
+technique Default
 {
 	pass Pass1
 	{
@@ -200,11 +140,11 @@ technique Texture
 	}
 }
 
-technique Animate
+technique Texture
 {
 	pass Pass1
 	{
-		VertexShader = compile vs_5_0 VertexShaderFunction();
+		VertexShader = compile vs_5_0 VertexShaderFunctionSimple();
 		PixelShader = compile ps_5_0 PixelShaderFunctionTex();
 	}
 }

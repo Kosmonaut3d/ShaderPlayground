@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using ShaderPlayground.Controls;
 using ShaderPlayground.Helpers;
 using ShaderPlayground.HelperSuite.GUIRenderer;
@@ -31,6 +32,9 @@ namespace ShaderPlayground.Screens
         private PixelizerLogic _pixelizerLogic;
         private PixelizerRenderer _pixelizerRenderer;
 
+        private BokehLogic _bokehLogic;
+        private BokehRenderer _bokehRenderer;
+
         ///////
 
         private MeshLoader _meshLoader;
@@ -46,7 +50,8 @@ namespace ShaderPlayground.Screens
             MainMenu,
             RadialBlur,
             Pixelizer,
-            Exit
+            Exit,
+            Bokeh
         }
 
         public void Initialize(GraphicsDevice graphics)
@@ -67,8 +72,12 @@ namespace ShaderPlayground.Screens
 
             _pixelizerLogic.Initialize(this, _pixelizerRenderer);
             _pixelizerRenderer.Initialize(graphics);
-            
+
+            _bokehLogic.Initialize(this, _bokehRenderer);
+            _bokehRenderer.Initialize(graphics);
+
             _transitionManager.Initialize(graphics, this);
+
         }
 
         public void Load(ContentManager content)
@@ -92,7 +101,12 @@ namespace ShaderPlayground.Screens
             _pixelizerLogic.Load(content);
             _pixelizerRenderer = new PixelizerRenderer();
             _pixelizerRenderer.Load(content);
-            
+
+            _bokehLogic = new BokehLogic();
+            _bokehLogic.Load(content);
+            _bokehRenderer = new BokehRenderer();
+            _bokehRenderer.Load(content);
+
             _transitionManager = new TransitionManager();
             _transitionManager.Load(content);
 
@@ -111,7 +125,6 @@ namespace ShaderPlayground.Screens
            
             _transitionManager.Update(gameTime);
             
-
             Input.Update(gameTime);
             switch (_currentState)
             {
@@ -130,12 +143,19 @@ namespace ShaderPlayground.Screens
                         _pixelizerLogic.Update(gameTime);
                         break;
                     }
+                case ScreenStates.Bokeh:
+                    {
+                        _bokehLogic.Update(gameTime);
+                        break;
+                    }
 
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
            _debugScreen.Update(gameTime);
+
+            //Reload
         }
 
         public void Draw(GameTime gameTime)
@@ -169,6 +189,12 @@ namespace ShaderPlayground.Screens
                     {
                         _pixelizerRenderer.Draw(gameTime, renderTarget);
                         _guiRenderer.Draw(_pixelizerLogic.GetCanvas());
+                        break;
+                    }
+                case ScreenStates.Bokeh:
+                    {
+                        _bokehRenderer.Draw(gameTime, renderTarget);
+                        _guiRenderer.Draw(_bokehLogic.GetCanvas());
                         break;
                     }
                 default:

@@ -51,7 +51,7 @@ namespace ShaderPlayground.Screens.RadialBlur.ShaderModules
         private float _splitChance;
         private float _endChance;
         private float _time;
-
+        
         public Texture2D ScreenTexture
         {
             get
@@ -167,13 +167,16 @@ namespace ShaderPlayground.Screens.RadialBlur.ShaderModules
         }
         
 
-        public void Draw(RenderTarget2D target, Color lineColor, float splitChance, float endChance, bool random, GameTime gameTime)
+        public void Draw(RenderTarget2D target, Color lineColor, float splitChance, float endChance, bool random, GameTime gameTime, int scale)
         {
             //Check for changes
             InitializeParameters();
 
-            if(_renderTarget1==null || _renderTarget1.Width!=GameSettings.g_ScreenWidth || _renderTarget1.Height != GameSettings.g_ScreenHeight)
-                CreateRT();
+            if(scale<1 || scale > 8)
+                throw new NotImplementedException("Scale values from 1 to 8 are supported");
+
+            if(_renderTarget1==null || _renderTarget0.Width*scale != GameSettings.g_ScreenWidth || _renderTarget0.Height * scale != GameSettings.g_ScreenHeight)
+                CreateRT(scale);
 
             //Don't draw if the effect is not loaded yet
             if (!_effectLoaded) return;
@@ -181,7 +184,7 @@ namespace ShaderPlayground.Screens.RadialBlur.ShaderModules
             //If mouse was clicked draw!
             if (Input.IsLMBPressed() && !GameStats.UIWasUsed)
             {
-                _mousePositionParameter.SetValue(Input.GetMousePosition().ToVector2());
+                _mousePositionParameter.SetValue(new Vector2( Input.GetMousePosition().X / scale, Input.GetMousePosition().Y / scale));
             }
             else
             {
@@ -218,7 +221,7 @@ namespace ShaderPlayground.Screens.RadialBlur.ShaderModules
             _quadRenderer.RenderQuad(_graphicsDevice, -Vector2.One, Vector2.One);
         }
 
-        public void CreateRT()
+        public void CreateRT(int scale)
         {
             if (_renderTarget1 != null)
             {
@@ -226,10 +229,13 @@ namespace ShaderPlayground.Screens.RadialBlur.ShaderModules
                 _renderTarget0.Dispose();
             }
 
-            _renderTarget0 = new RenderTarget2D(_graphicsDevice, GameSettings.g_ScreenWidth, GameSettings.g_ScreenHeight, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
-            _renderTarget1 = new RenderTarget2D(_graphicsDevice, GameSettings.g_ScreenWidth, GameSettings.g_ScreenHeight, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
+            int w = GameSettings.g_ScreenWidth / scale;
+            int h = GameSettings.g_ScreenHeight / scale;
 
-            _resolutionParameter.SetValue(new Vector2(GameSettings.g_ScreenWidth, GameSettings.g_ScreenHeight));
+            _renderTarget0 = new RenderTarget2D(_graphicsDevice, w,h, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
+            _renderTarget1 = new RenderTarget2D(_graphicsDevice, w,h, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.PreserveContents);
+
+            _resolutionParameter.SetValue(new Vector2(w,h));
 
             //Clear to black
 
