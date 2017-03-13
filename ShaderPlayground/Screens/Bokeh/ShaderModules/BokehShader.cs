@@ -28,7 +28,7 @@ namespace ShaderPlayground.Screens.Bokeh.ShaderModules
         private Vector2 v2 = Vector2.One;
         private Vector2 vcenter = Vector2.One;
         private Vector2 texCoord = Vector2.One;
-        private int primitiveCount;
+        public int PrimitiveCount;
 
         private VertexBuffer _vertexBuffer;
         private IndexBuffer _indexBuffer;
@@ -178,7 +178,7 @@ namespace ShaderPlayground.Screens.Bokeh.ShaderModules
 
             _graphicsDevice.SetVertexBuffer(_vertexBuffer);
             _graphicsDevice.Indices = _indexBuffer;
-            _graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, primitiveCount);
+            _graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, PrimitiveCount);
 
             //Draw to RT
             _graphicsDevice.SetRenderTarget(rt);
@@ -220,12 +220,16 @@ namespace ShaderPlayground.Screens.Bokeh.ShaderModules
             int verticeCount = col*row*4;
             int indiceCount = col*row*6;
 
-            primitiveCount = verticeCount/2;
+            PrimitiveCount = verticeCount/2;
+
+            bool createQuads = false;
 
             if (_vertices == null || _downsizeChanged)
             {
                 _vertices = new BokehVertex[verticeCount];
                 _indices = new int[indiceCount];
+
+                createQuads = true;
             }
 
             float sizex = 1.0f / col ;
@@ -245,7 +249,16 @@ namespace ShaderPlayground.Screens.Bokeh.ShaderModules
             {
                 for (int j = 0; j < row; j++)
                 {
-                    CreateQuad((i + 0.5f) * sizex, (j + 0.5f) * sizey, sizex * sizeMultiplier, sizey * sizeMultiplier, vertexIndex, indexIndex);
+                    if (createQuads)
+                    {
+                        CreateQuad((i + 0.5f)*sizex, (j + 0.5f)*sizey, sizex*sizeMultiplier, sizey*sizeMultiplier,
+                            vertexIndex, indexIndex);
+                    }
+                    //Note: For a quad resize we don't have to create new quads, just modify the old ones
+                    else
+                    {
+                        SetQuad((i + 0.5f) * sizex, (j + 0.5f) * sizey, sizex * sizeMultiplier, sizey * sizeMultiplier, vertexIndex, indexIndex);
+                    }
 
                     vertexIndex += 4;
                     indexIndex += 6;
@@ -266,8 +279,10 @@ namespace ShaderPlayground.Screens.Bokeh.ShaderModules
             
             _vertexBuffer.SetData(_vertices);
             _indexBuffer.SetData(_indices);
-        }
 
+            _downsizeChanged = false;
+        }
+        
         private void CreateQuad(float x, float y, float sizex, float sizey, int vertexIndex, int indexIndex)
         {
             texCoord.X = x;
@@ -292,26 +307,47 @@ namespace ShaderPlayground.Screens.Bokeh.ShaderModules
             _indices[3 + indexIndex] = 0 + vertexIndex;
             _indices[4 + indexIndex] = 1 + vertexIndex;
             _indices[5 + indexIndex] = 3 + vertexIndex;
+        }
 
-            //_vertexBuffer = new VertexPositionTexture[4];
-            //_vertexBuffer[0] = new VertexPositionTexture(new Vector3(-1, 1, 1), new Vector2(0, 0));
-            //_vertexBuffer[1] = new VertexPositionTexture(new Vector3(1, 1, 1), new Vector2(1, 0));
-            //_vertexBuffer[2] = new VertexPositionTexture(new Vector3(-1, -1, 1), new Vector2(0, 1));
-            //_vertexBuffer[3] = new VertexPositionTexture(new Vector3(1, -1, 1), new Vector2(1, 1));
+        private void SetQuad(float x, float y, float sizex, float sizey, int vertexIndex, int indexIndex)
+        {
+            texCoord.X = x;
+            texCoord.Y = 1 - y;
 
-            //_vertexBuffer[0].Position.X = v1.X;
-            //_vertexBuffer[0].Position.Y = v2.Y;
+            x = x * 2 - 1;
+            y = (y * 2 - 1);
 
-            //_vertexBuffer[1].Position.X = v2.X;
-            //_vertexBuffer[1].Position.Y = v2.Y;
+            v1.X = x - sizex * 4;
+            v1.Y = y - sizey * 4;
+            v2.X = x + sizex * 4;
+            v2.Y = y + sizey * 4;
 
-            //_vertexBuffer[2].Position.X = v1.X;
-            //_vertexBuffer[2].Position.Y = v1.Y;
+            //_vertices[0 + vertexIndex].Position.X = v1.X;
+            //_vertices[0 + vertexIndex].Position.Y = v2.Y;
+            ////_vertices[0 + vertexIndex].TexCoord = texCoord;
 
-            //_vertexBuffer[3].Position.X = v2.X;
-            //_vertexBuffer[3].Position.Y = v1.Y;
+            //_vertices[1 + vertexIndex] = new BokehVertex(new Vector3(v2.X, v2.Y, 1), new Vector2(1, 0), texCoord);
+            //_vertices[2 + vertexIndex] = new BokehVertex(new Vector3(v1.X, v1.Y, 1), new Vector2(0, 1), texCoord);
+            //_vertices[3 + vertexIndex] = new BokehVertex(new Vector3(v2.X, v1.Y, 1), new Vector2(1, 1), texCoord);
 
-            //_indexBuffer = new short[] { 0, 3, 2, 0, 1, 3 };
+            _vertices[0 + vertexIndex].Position.X = v1.X;
+            _vertices[0 + vertexIndex].Position.Y = v2.Y;
+
+            _vertices[1 + vertexIndex].Position.X = v2.X;
+            _vertices[1 + vertexIndex].Position.Y = v2.Y;
+
+            _vertices[2 + vertexIndex].Position.X = v1.X;
+            _vertices[2 + vertexIndex].Position.Y = v1.Y;
+
+            _vertices[3 + vertexIndex].Position.X = v2.X;
+            _vertices[3 + vertexIndex].Position.Y = v1.Y;
+
+            //_indices[0 + indexIndex] = 0 + vertexIndex;
+            //_indices[1 + indexIndex] = 3 + vertexIndex;
+            //_indices[2 + indexIndex] = 2 + vertexIndex;
+            //_indices[3 + indexIndex] = 0 + vertexIndex;
+            //_indices[4 + indexIndex] = 1 + vertexIndex;
+            //_indices[5 + indexIndex] = 3 + vertexIndex;
         }
 
 

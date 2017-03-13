@@ -28,6 +28,8 @@ namespace ShaderPlayground.Screens.RadialBlur
         private GUITextBlockButton _circleToggle;
         private GUITextBlockButton _starToggle;
 
+        private GUITextBlock _polyCount;
+
         private BokehRenderer _renderer;
 
         public void Initialize(ScreenManager screenManager, BokehRenderer renderer)
@@ -84,6 +86,13 @@ namespace ShaderPlayground.Screens.RadialBlur
                 Toggle = renderer.FullPrecision,
             });
 
+            baseList.AddElement(new GUITextBlockToggle(Vector2.Zero, new Vector2(200, 25), "Dynamic Scaling", GUIRenderer.MonospaceFont, Color.Gray, Color.White)
+            {
+                ToggleObject = renderer,
+                ToggleField = renderer.GetType().GetField("DynamicScaling"),
+                Toggle = renderer.DynamicScaling,
+            });
+
             baseList.AddElement(new GUIBlock(Vector2.Zero, new Vector2(200, 25), Color.DimGray));
 
             baseList.AddElement(new GUITextBlock(Vector2.Zero, new Vector2(200, 25), "Bokeh Shape: ", GUIRenderer.MonospaceFont, Color.Gray, Color.White));
@@ -109,6 +118,10 @@ namespace ShaderPlayground.Screens.RadialBlur
                 ButtonMethod = GetType().GetMethod("SwitchShape"),
                 ButtonMethodArgs = new object[] { BokehRenderer.BokehShapes.Star }
             });
+            
+            baseList.AddElement(new GUIBlock(Vector2.Zero, new Vector2(200, 25), Color.DimGray));
+
+            baseList.AddElement(_polyCount = new GUITextBlock(Vector2.Zero, new Vector2(200, 25), "PolyCount: ", GUIRenderer.MonospaceFont, Color.DimGray, Color.White));
 
 
             renderer._backgroundTextureLoader = textureLoader;
@@ -158,6 +171,10 @@ namespace ShaderPlayground.Screens.RadialBlur
                 _downsizeBlock.Text.Clear();
                 _downsizeBlock.Text.Append("Scale: 1 / ");
                 _downsizeBlock.Text.Concat(1 << _renderer.Downsize);
+
+                _polyCount.Text.Clear();
+                _polyCount.Text.Append("PolyCount: ");
+                _polyCount.Text.Concat(_renderer.PolyCount);
             }
 
             //Safety

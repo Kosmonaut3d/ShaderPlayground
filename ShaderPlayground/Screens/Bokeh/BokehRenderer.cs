@@ -32,6 +32,8 @@ namespace ShaderPlayground.Screens.RadialBlur
 
         public BokehShapes BokehShape = BokehShapes.Pentagon;
         public bool FullPrecision = false;
+        public bool DynamicScaling = true;
+        public int PolyCount = 1;
 
         public enum BokehShapes
         {
@@ -73,8 +75,23 @@ namespace ShaderPlayground.Screens.RadialBlur
             
             //_spriteBatch.End();
 
-            _bokehShader.Draw(input, GetBokehTex(), outputRT, Brightness * 0.1f, BokehSize, 1 << Downsize, FullPrecision);
+            //Dynamic
+            if (DynamicScaling)
+            {
+                int amount = Math.Min( (int) (BokehSize/5), 2);
 
+                int sizeamount = 1 << amount;
+
+                _bokehShader.Draw(input, GetBokehTex(), outputRT, Brightness*0.1f, BokehSize/sizeamount,
+                    1 << Downsize + amount, FullPrecision);
+            }
+            else
+            {
+                _bokehShader.Draw(input, GetBokehTex(), outputRT, Brightness * 0.1f, BokehSize,
+                    1 << Downsize, FullPrecision);
+            }
+
+            PolyCount = _bokehShader.PrimitiveCount;
         }
 
         private Texture2D GetBokehTex()
