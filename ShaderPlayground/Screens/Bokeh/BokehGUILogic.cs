@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ShaderPlayground.Controls;
@@ -9,7 +8,7 @@ using ShaderPlayground.HelperSuite.GUIRenderer;
 using ShaderPlayground.HelperSuite.GUIRenderer.Helper;
 using ShaderPlayground.Settings;
 
-namespace ShaderPlayground.Screens.RadialBlur
+namespace ShaderPlayground.Screens.Bokeh
 {
     public class BokehGUILogic
     {
@@ -103,6 +102,13 @@ namespace ShaderPlayground.Screens.RadialBlur
                 ButtonObject = this,
                 ButtonMethod = GetType().GetMethod("SwitchShape"),
                 ButtonMethodArgs = new object[] { BokehRenderer.BokehShapes.Pentagon }
+            });
+
+            baseList.AddElement(new GUITextBlockButton(Vector2.Zero, new Vector2(200, 25), "Hexagon", GUIRenderer.MonospaceFont, Color.Gray, Color.White)
+            {
+                ButtonObject = this,
+                ButtonMethod = GetType().GetMethod("SwitchShape"),
+                ButtonMethodArgs = new object[] { BokehRenderer.BokehShapes.Hexagon }
             });
 
             baseList.AddElement(new GUITextBlockButton(Vector2.Zero, new Vector2(200, 25), "Circle", GUIRenderer.MonospaceFont, Color.Gray, Color.White)

@@ -99,7 +99,7 @@ namespace ShaderPlayground.Screens.Bokeh.ShaderModules
             get { return _brightness; }
             set
             {
-                if (Math.Abs(_brightness - value) > 0.0001f)
+                if (Math.Abs(_brightness - value) > 0.00001f)
                 {
                     _brightness = value;
                     _brighnessParameter.SetValue(_brightness * _bokehSizeBrightness);
@@ -237,7 +237,7 @@ namespace ShaderPlayground.Screens.Bokeh.ShaderModules
 
             float sizeMultiplier = size;
 
-            _bokehSizeBrightness = 1.0f/(size*size);
+            _bokehSizeBrightness = 1.0f/(size * size);
 
             //Apply
             _brighnessParameter.SetValue(_brightness * _bokehSizeBrightness);

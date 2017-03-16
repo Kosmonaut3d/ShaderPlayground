@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using ShaderPlayground.Controls;
 using ShaderPlayground.Helpers;
 using ShaderPlayground.HelperSuite.GUIRenderer;
+using ShaderPlayground.Screens.Bokeh;
 using ShaderPlayground.Screens.Debug;
 using ShaderPlayground.Screens.MainMenu;
 using ShaderPlayground.Screens.RadialBlur;

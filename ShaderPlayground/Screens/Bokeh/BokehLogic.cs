@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using ShaderPlayground.HelperSuite.GUI;
 
-namespace ShaderPlayground.Screens.RadialBlur
+namespace ShaderPlayground.Screens.Bokeh
 {
     public class BokehLogic
     {

@@ -2,13 +2,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using ShaderPlayground.Controls;
 using ShaderPlayground.HelperSuite.GUI;
 using ShaderPlayground.Screens.Bokeh.ShaderModules;
-using ShaderPlayground.Screens.RadialBlur.ShaderModules;
-using ShaderPlayground.Settings;
 
-namespace ShaderPlayground.Screens.RadialBlur
+namespace ShaderPlayground.Screens.Bokeh
 {
     public class BokehRenderer
     {
@@ -25,6 +22,7 @@ namespace ShaderPlayground.Screens.RadialBlur
         private Texture2D _shapeStar;
         private Texture2D _shapePentagon;
         private Texture2D _shapeCircle;
+        private Texture2D _shapeHexagon;
 
         public float Brightness = 1;
         public float BokehSize = 4;
@@ -38,8 +36,9 @@ namespace ShaderPlayground.Screens.RadialBlur
         public enum BokehShapes
         {
             Pentagon,
+            Hexagon,
             Circle,
-            Star
+            Star,
         };
 
         public void Initialize(GraphicsDevice graphics)
@@ -61,6 +60,7 @@ namespace ShaderPlayground.Screens.RadialBlur
             _shapeStar = content.Load<Texture2D>("shaders/bokeh/ShapeSTar");
             _shapeCircle = content.Load<Texture2D>("shaders/bokeh/ShapeCircle");
             _shapePentagon = content.Load<Texture2D>("shaders/bokeh/ShapePentagon");
+            _shapeHexagon = content.Load<Texture2D>("shaders/bokeh/ShapeHexagon");
         }
 
         public void Draw(GameTime gameTime, RenderTarget2D outputRT)
@@ -82,12 +82,12 @@ namespace ShaderPlayground.Screens.RadialBlur
 
                 int sizeamount = 1 << amount;
 
-                _bokehShader.Draw(input, GetBokehTex(), outputRT, Brightness*0.1f, BokehSize/sizeamount,
+                _bokehShader.Draw(input, GetBokehTex(), outputRT, Brightness, BokehSize/sizeamount,
                     1 << Downsize + amount, FullPrecision);
             }
             else
             {
-                _bokehShader.Draw(input, GetBokehTex(), outputRT, Brightness * 0.1f, BokehSize,
+                _bokehShader.Draw(input, GetBokehTex(), outputRT, Brightness , BokehSize,
                     1 << Downsize, FullPrecision);
             }
 
@@ -104,6 +104,8 @@ namespace ShaderPlayground.Screens.RadialBlur
                     return _shapeCircle;
                 case BokehShapes.Star:
                     return _shapeStar;
+                case BokehShapes.Hexagon:
+                    return _shapeHexagon;
             }
 
             //Should not be happening

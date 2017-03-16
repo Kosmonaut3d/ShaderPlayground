@@ -113,7 +113,8 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 	//float4 color = Screen.Sample(texSampler, input.TexCoord2);
 
 	
-	float shape = Shape.Load(int3(input.TexCoord * shape_size, 0)).r;
+	float shape = /*Shape.Sample(bilinearSampler, input.TexCoord).r; */
+		Shape.Load(int3(input.TexCoord * shape_size, 0)).r;
 
 	//float luma = color.r * 0.299 + 0.587 * color.g + 0.11f * color.b;
 	
@@ -123,7 +124,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 
 float4 PixelShaderFunctionTex(VertexShaderOutputSimple input) : COLOR
 {
-	return Screen.Sample(bilinearSampler, input.TexCoord)* Brightness;
+	return Screen.Sample(bilinearSampler, input.TexCoord)* Brightness * 0.1f;
 }
 
 

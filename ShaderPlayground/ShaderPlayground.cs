@@ -28,7 +28,7 @@ namespace ShaderPlayground
 
             graphics.PreferredBackBufferWidth = GameSettings.g_ScreenWidth;
             graphics.PreferredBackBufferHeight = GameSettings.g_ScreenHeight;
-
+            
             //graphics.SynchronizeWithVerticalRetrace = false;
             //IsFixedTimeStep = false;
             //TargetElapsedTime = TimeSpan.FromMilliseconds(1000.0f/ 200);

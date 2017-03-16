@@ -63,6 +63,10 @@
     <Compile Include="Helpers\FastRand.cs" />
     <Compile Include="Helpers\MeshLoader.cs" />
     <Compile Include="Helpers\QuadRenderer.cs" />
+    <Compile Include="Screens\DefaultPreset\DefaultGUIRenderer.cs" />
+    <Compile Include="Screens\DefaultPreset\DefaultLogic.cs" />
+    <Compile Include="Screens\DefaultPreset\DefaultRenderer.cs" />
+    <Compile Include="Screens\DefaultPreset\ShaderModules\DefaultShader.cs" />
     <Compile Include="Screens\Bokeh\ShaderModules\QuadRenderer.cs" />
     <Compile Include="Screens\Pixelizer\PixelizerGUILogic.cs" />
     <Compile Include="Screens\Pixelizer\PixelizerLogic.cs" />
