@@ -76,20 +76,10 @@ namespace ShaderPlayground.Screens.Bokeh
             //_spriteBatch.End();
 
             //Dynamic
-            if (DynamicScaling)
-            {
-                int amount = Math.Min( (int) (BokehSize/5), 2);
-
-                int sizeamount = 1 << amount;
-
-                _bokehShader.Draw(input, GetBokehTex(), outputRT, Brightness, BokehSize/sizeamount,
-                    1 << Downsize + amount, FullPrecision);
-            }
-            else
-            {
-                _bokehShader.Draw(input, GetBokehTex(), outputRT, Brightness , BokehSize,
-                    1 << Downsize, FullPrecision);
-            }
+            
+            _bokehShader.Draw(input, GetBokehTex(), outputRT, Brightness , BokehSize,
+                    1 << Downsize, FullPrecision, DynamicScaling);
+            
 
             PolyCount = _bokehShader.PrimitiveCount;
         }

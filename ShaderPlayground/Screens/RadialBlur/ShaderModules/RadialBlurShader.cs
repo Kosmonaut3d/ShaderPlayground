@@ -34,6 +34,7 @@ namespace ShaderPlayground.Screens.RadialBlur.ShaderModules
         private EffectParameter _mouseParameter;
         private EffectParameter _blurIntensityParameter;
         private EffectParameter _blurSamplesParameter;
+        private EffectParameter _invblurSamplesParameter;
 
         private EffectPass _blurPass;
         private EffectPass _texPass;
@@ -70,6 +71,7 @@ namespace ShaderPlayground.Screens.RadialBlur.ShaderModules
         }
 
         private int _blurSamples = 10;
+
         public int BlurSamples
         {
             get { return _blurSamples; }
@@ -77,6 +79,7 @@ namespace ShaderPlayground.Screens.RadialBlur.ShaderModules
             {
                 _blurSamples = value;
                 _blurSamplesParameter.SetValue((float)_blurSamples);
+                _invblurSamplesParameter.SetValue(1.0f / _blurSamples);
             }
         }
 
@@ -216,7 +219,7 @@ namespace ShaderPlayground.Screens.RadialBlur.ShaderModules
             _mouseParameter = shaderEffect.Parameters["MousePosition"];
             _blurIntensityParameter = shaderEffect.Parameters["BlurIntensity"];
             _blurSamplesParameter = shaderEffect.Parameters["BlurSamples"];
-
+            _invblurSamplesParameter = shaderEffect.Parameters["InvBlurSamples"];
             _blurPass = shaderEffect.Techniques["Blur"].Passes[0];
             _texPass = shaderEffect.Techniques["Texture"].Passes[0];
 

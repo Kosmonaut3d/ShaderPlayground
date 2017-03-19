@@ -42,6 +42,5 @@ namespace ShaderPlayground.Helpers
             graphicsDevice.DrawUserIndexedPrimitives
                 (PrimitiveType.TriangleList, _vertexBuffer, 0, 4, _indexBuffer, 0, 2);
         }
-
     }
 }

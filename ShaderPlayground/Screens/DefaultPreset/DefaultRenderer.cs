@@ -31,7 +31,7 @@ namespace ShaderPlayground.Screens.DefaultPreset
         public void Load(ContentManager content)
         {
             _defaultShader = new DefaultShader();
-            _defaultShader.Load(content, "shaders/Bokeh/Bokeh");
+            _defaultShader.Load(content, "shaders/Default/Default");
         }
 
         public void Draw(GameTime gameTime, RenderTarget2D outputRT)

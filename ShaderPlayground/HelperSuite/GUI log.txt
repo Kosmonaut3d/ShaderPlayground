@@ -1,0 +1,4 @@
+﻿GUI LOG
+
+Version 1.0
+

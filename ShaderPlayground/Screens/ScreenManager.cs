@@ -9,6 +9,7 @@ using ShaderPlayground.HelperSuite.GUIRenderer;
 using ShaderPlayground.Screens.Bokeh;
 using ShaderPlayground.Screens.Debug;
 using ShaderPlayground.Screens.MainMenu;
+using ShaderPlayground.Screens.ParticlePhysics;
 using ShaderPlayground.Screens.RadialBlur;
 
 namespace ShaderPlayground.Screens
@@ -36,6 +37,9 @@ namespace ShaderPlayground.Screens
         private BokehLogic _bokehLogic;
         private BokehRenderer _bokehRenderer;
 
+        private ParticlePhysicsLogic _particlePhysicsLogic;
+        private ParticlePhysicsRenderer _particlePhysicsRenderer;
+
         ///////
 
         private MeshLoader _meshLoader;
@@ -52,7 +56,8 @@ namespace ShaderPlayground.Screens
             RadialBlur,
             Pixelizer,
             Exit,
-            Bokeh
+            Bokeh,
+            ParticlePhysics
         }
 
         public void Initialize(GraphicsDevice graphics)
@@ -76,6 +81,9 @@ namespace ShaderPlayground.Screens
 
             _bokehLogic.Initialize(this, _bokehRenderer);
             _bokehRenderer.Initialize(graphics);
+
+            _particlePhysicsLogic.Initialize(this, _particlePhysicsRenderer);
+            _particlePhysicsRenderer.Initialize(graphics);
 
             _transitionManager.Initialize(graphics, this);
 
@@ -107,6 +115,11 @@ namespace ShaderPlayground.Screens
             _bokehLogic.Load(content);
             _bokehRenderer = new BokehRenderer();
             _bokehRenderer.Load(content);
+
+            _particlePhysicsLogic = new ParticlePhysicsLogic();
+            _particlePhysicsLogic.Load(content);
+            _particlePhysicsRenderer = new ParticlePhysicsRenderer();
+            _particlePhysicsRenderer.Load(content);
 
             _transitionManager = new TransitionManager();
             _transitionManager.Load(content);
@@ -147,6 +160,11 @@ namespace ShaderPlayground.Screens
                 case ScreenStates.Bokeh:
                     {
                         _bokehLogic.Update(gameTime);
+                        break;
+                    }
+                case ScreenStates.ParticlePhysics:
+                    {
+                        _particlePhysicsLogic.Update(gameTime);
                         break;
                     }
 
@@ -196,6 +214,12 @@ namespace ShaderPlayground.Screens
                     {
                         _bokehRenderer.Draw(gameTime, renderTarget);
                         _guiRenderer.Draw(_bokehLogic.GetCanvas());
+                        break;
+                    }
+                case ScreenStates.ParticlePhysics:
+                    {
+                        _particlePhysicsRenderer.Draw(gameTime, renderTarget);
+                        _guiRenderer.Draw(_particlePhysicsLogic.GetCanvas());
                         break;
                     }
                 default:

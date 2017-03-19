@@ -136,11 +136,22 @@ namespace ShaderPlayground.Screens.Bokeh.ShaderModules
             });
         }
 
-        public void Draw(Texture2D tex, Texture2D shape, RenderTarget2D rt, float brightness, float bokehSize, int downsize, bool fullPrecision)
+        public void Draw(Texture2D tex, Texture2D shape, RenderTarget2D rt, float brightness, float bokehSize, int downsize, bool fullPrecision, bool dynamicDownsize)
         {
             InitializeParameters();
             
             if (!_effectLoaded) return;
+
+            if (dynamicDownsize)
+            {
+                int amount = Math.Min((int) (bokehSize / 5), 2);
+
+                int sizeamount = 1 << amount;
+
+                bokehSize /= sizeamount;
+
+                downsize = downsize << amount;
+            }
 
             //Create Quads
             if (Math.Abs(bokehSize - _bokehSize) > 0.01f || downsize!=_downsize)

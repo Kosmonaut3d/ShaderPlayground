@@ -54,6 +54,7 @@
     <Compile Include="HelperSuite\GUI\GUIList.cs" />
     <Compile Include="HelperSuite\GUI\GuiListToggle.cs" />
     <Compile Include="HelperSuite\GUI\GuiListToggleScroll.cs" />
+    <Compile Include="HelperSuite\GUI\GuiSliderFloatText.cs" />
     <Compile Include="HelperSuite\GUI\GuiSliderFloat.cs" />
     <Compile Include="HelperSuite\GUI\GUIStyle.cs" />
     <Compile Include="HelperSuite\GUI\GUITextBlock.cs" />
@@ -61,8 +62,13 @@
     <Compile Include="HelperSuite\GUI\GuiTextBlockLoadDialog.cs" />
     <Compile Include="HelperSuite\GUI\GUITextBlockToggle.cs" />
     <Compile Include="Helpers\FastRand.cs" />
+    <Compile Include="Helpers\FullScreenQuadRenderer.cs" />
     <Compile Include="Helpers\MeshLoader.cs" />
     <Compile Include="Helpers\QuadRenderer.cs" />
+    <Compile Include="Screens\ParticlePhysics\ParticlePhysicsGUIRenderer.cs" />
+    <Compile Include="Screens\ParticlePhysics\ParticlePhysicsLogic.cs" />
+    <Compile Include="Screens\ParticlePhysics\ParticlePhysicsRenderer.cs" />
+    <Compile Include="Screens\ParticlePhysics\ShaderModules\ParticlePhysicsShader.cs" />
     <Compile Include="Screens\DefaultPreset\DefaultGUIRenderer.cs" />
     <Compile Include="Screens\DefaultPreset\DefaultLogic.cs" />
     <Compile Include="Screens\DefaultPreset\DefaultRenderer.cs" />
@@ -92,8 +98,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework">
-      <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+    <Reference Include="MonoGame.Framework, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Monogame\MonoGame.Framework\bin\Windows\AnyCPU\Debug\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
@@ -154,6 +161,7 @@
     <Content Include="Content\mgcb\runtimetexture.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="HelperSuite\GUI log.txt" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

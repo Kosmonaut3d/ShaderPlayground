@@ -52,6 +52,13 @@ namespace ShaderPlayground.Screens.MainMenu
                 ButtonMethodArgs = new object[] { ScreenManager.ScreenStates.Bokeh }
             });
 
+            baseList.AddElement(new GUITextBlockButton(Vector2.Zero, new Vector2(200, 35), "Particle Physics", GUIRenderer.MonospaceFont, Color.Gray, Color.White)
+            {
+                ButtonObject = this,
+                ButtonMethod = GetType().GetMethod("SwitchState"),
+                ButtonMethodArgs = new object[] { ScreenManager.ScreenStates.ParticlePhysics }
+            });
+
             baseList.AddElement(new GUITextBlockButton(Vector2.Zero, new Vector2(200, 35), "Exit", GUIRenderer.MonospaceFont, Color.Gray, Color.White)
             {
                 ButtonObject = this,

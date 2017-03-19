@@ -16,6 +16,7 @@ float2 MousePosition = float2(0.5f, 0.5f);
 float BlurIntensity = 0.2f;
 
 float BlurSamples = 10;
+float InvBlurSamples = 0.1f;
 
 SamplerState texSampler
 {
@@ -78,8 +79,6 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 	float2 vec = MousePosition - input.TexCoord;
 
 	//vec.x *= AspectRatio;
-
-	float len = length(vec);
 
 	float4 color;
 
