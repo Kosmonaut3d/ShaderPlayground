@@ -9,6 +9,17 @@ namespace ShaderPlayground.HelperSuite.GUI
     {
         protected Color Color;
 
+        public GUIBlock(GUIStyle style) : this(
+            position: Vector2.Zero,
+            dimensions: style.DimensionsStyle,
+            color: style.BlockColorStyle,
+            layer: 0,
+            alignment: style.GuiAlignmentStyle,
+            ParentDimensions: style.ParentDimensionsStyle)
+        {
+            //Filled by GuiStyle
+        }
+
         public GUIBlock(Vector2 position, Vector2 dimensions, Color color, int layer = 0, GUIStyle.GUIAlignment alignment = GUIStyle.GUIAlignment.None, Vector2 ParentDimensions = default(Vector2))
         {
             Position = position;

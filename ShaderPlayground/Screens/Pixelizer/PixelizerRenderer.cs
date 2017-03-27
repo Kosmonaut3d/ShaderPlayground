@@ -1,12 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using HelperSuite.GUI;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ShaderPlayground.Controls;
-using ShaderPlayground.HelperSuite.GUI;
+using ShaderPlayground.Screens.Pixelizer.ShaderModules;
 using ShaderPlayground.Screens.RadialBlur.ShaderModules;
 using ShaderPlayground.Settings;
 
-namespace ShaderPlayground.Screens.RadialBlur
+namespace ShaderPlayground.Screens.Pixelizer
 {
     public class PixelizerRenderer
     {

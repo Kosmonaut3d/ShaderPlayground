@@ -17,6 +17,14 @@ namespace ShaderPlayground.HelperSuite.GUI
 
         public bool IsToggled = true;
 
+        public GuiListToggle(Vector2 position, GUIStyle guiStyle) : this(
+            position: position, 
+            defaultDimensions: guiStyle.DimensionsStyle,
+            layer: 0,
+            alignment: guiStyle.GuiAlignmentStyle,
+            ParentDimensions: guiStyle.ParentDimensionsStyle)
+        { }
+
         public GuiListToggle(Vector2 position, Vector2 defaultDimensions, int layer = 0, GUIStyle.GUIAlignment alignment = GUIStyle.GUIAlignment.None, Vector2 ParentDimensions = new Vector2()) : base(position, defaultDimensions, layer, alignment, ParentDimensions)
         {
             _toggleDimensions = new Vector2(defaultDimensions.X, ToggleButtonHeight);

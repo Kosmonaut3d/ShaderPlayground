@@ -41,6 +41,23 @@ namespace ShaderPlayground.HelperSuite.GUI
             Texture2D
         };
 
+        public GuiTextBlockLoadDialog(GUIStyle style, string text, GUIContentLoader contentLoader, ContentType contentType) : this(
+            position: Vector2.Zero,
+            dimensions: style.DimensionsStyle,
+            text: text,
+            guiContentLoader: contentLoader,
+            contentType: contentType,
+            font: style.TextFontStyle,
+            blockColor: style.BlockColorStyle,
+            textColor: style.TextColorStyle,
+            textAlignment: GUIStyle.TextAlignment.Left,
+            textBorder: style.TextBorderStyle,
+            layer: 0,
+            alignment: style.GuiAlignmentStyle,
+            parentDimensions: style.ParentDimensionsStyle
+            )
+        {
+        }
         public GuiTextBlockLoadDialog(Vector2 position, Vector2 dimensions, string text, GUIContentLoader guiContentLoader, ContentType contentType, SpriteFont font, Color blockColor, Color textColor, GUIStyle.TextAlignment textAlignment = GUIStyle.TextAlignment.Center, Vector2 textBorder = default(Vector2), int layer = 0, GUIStyle.GUIAlignment alignment = GUIStyle.GUIAlignment.None, Vector2 parentDimensions = default(Vector2)) : base(position, dimensions, text, font, blockColor, textColor, textAlignment, textBorder, layer)
         {
             _loadedObjectName.Append("...");

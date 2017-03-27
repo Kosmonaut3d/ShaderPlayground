@@ -1,8 +1,8 @@
 ﻿using System;
+using HelperSuite.GUI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using ShaderPlayground.HelperSuite.GUI;
 using ShaderPlayground.Screens.DefaultPreset.ShaderModules;
 
 namespace ShaderPlayground.Screens.DefaultPreset

@@ -51,12 +51,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphical User Interface/colorpickersmall.png
 
-#begin Graphical User Interface/GUIEffect.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:Graphical User Interface/GUIEffect.fx
-
 #begin Shaders/Transition/TransitionShader.fx
 /importer:EffectImporter
 /processor:EffectProcessor

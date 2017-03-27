@@ -1,33 +1,33 @@
-﻿using Microsoft.Xna.Framework;
+﻿using HelperSuite.GUI;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using ShaderPlayground.HelperSuite.GUI;
 
 namespace ShaderPlayground.Screens.ParticlePhysics
 {
     public class ParticlePhysicsLogic
     {
-        private ParticlePhysicsGUIRenderer _guiGuiRenderer;
+        private ParticlePhysicsGUILogic _guiGuiLogic;
 
         public void Initialize(ScreenManager screenManager, ParticlePhysicsRenderer renderer)
         {
             
-            _guiGuiRenderer.Initialize(screenManager, renderer);
+            _guiGuiLogic.Initialize(screenManager, renderer);
         }
 
         public void Update(GameTime gameTime)
         {
-            _guiGuiRenderer.Update(gameTime);
+            _guiGuiLogic.Update(gameTime);
         }
 
         public GUICanvas GetCanvas()
         {
-            return _guiGuiRenderer.getCanvas();
+            return _guiGuiLogic.getCanvas();
         }
 
         public void Load(ContentManager content)
         {
-            _guiGuiRenderer = new ParticlePhysicsGUIRenderer();
-            _guiGuiRenderer.Load(content);
+            _guiGuiLogic = new ParticlePhysicsGUILogic();
+            _guiGuiLogic.Load(content);
         }
     }
 }

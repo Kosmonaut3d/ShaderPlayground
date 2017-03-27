@@ -34,6 +34,13 @@ namespace ShaderPlayground.HelperSuite.GUI
         protected float SliderPosition = 0.5f;
         protected float SliderHeight = 10;
 
+        public GuiListToggleScroll(Vector2 position, GUIStyle guiStyle) : this(
+            position: position,
+            defaultDimensions: guiStyle.DimensionsStyle,
+            layer: 0,
+            alignment: guiStyle.GuiAlignmentStyle,
+            ParentDimensions: guiStyle.ParentDimensionsStyle)
+        { }
 
         public GuiListToggleScroll(Vector2 position, Vector2 defaultDimensions, int layer = 0, GUIStyle.GUIAlignment alignment = GUIStyle.GUIAlignment.None, Vector2 ParentDimensions = new Vector2()) : base(position, defaultDimensions, layer, alignment, ParentDimensions)
         {

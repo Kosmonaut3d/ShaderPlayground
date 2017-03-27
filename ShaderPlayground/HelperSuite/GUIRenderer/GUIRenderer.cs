@@ -13,11 +13,8 @@ namespace ShaderPlayground.HelperSuite.GUIRenderer
     {
         private GraphicsDevice _graphicsDevice;
         private SpriteBatch _spriteBatch;
-        private QuadRendererColor _quadRendererColor;
 
         public Vector2 Resolution;
-
-        private Effect _guiEffect;
         
         private Texture2D _plainWhite;
         private Texture2D _colorPickerBig;
@@ -40,9 +37,7 @@ namespace ShaderPlayground.HelperSuite.GUIRenderer
             
             _graphicsDevice = graphicsDevice;
             _spriteBatch = new SpriteBatch(graphicsDevice);
-
-            _quadRendererColor = new QuadRendererColor();
-
+            
             Resolution = new Vector2(GameSettings.g_ScreenWidth, GameSettings.g_ScreenHeight);
 
             _plainWhite = new Texture2D(graphicsDevice, 1,1);
@@ -52,9 +47,7 @@ namespace ShaderPlayground.HelperSuite.GUIRenderer
         public void Load(ContentManager content)
         {
             MonospaceFont = content.Load<SpriteFont>("Fonts/monospace");
-
-            _guiEffect = content.Load<Effect>("Graphical User Interface/GUIEffect");
-
+            
             _colorPickerSmall = content.Load<Texture2D>("Graphical User Interface/colorpickersmall");
             _colorPickerBig = content.Load<Texture2D>("Graphical User Interface/colorpickerBig");
 

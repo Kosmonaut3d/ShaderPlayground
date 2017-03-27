@@ -1,4 +1,5 @@
 ﻿using System;
+using HelperSuite.GUIHelper;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -73,6 +74,7 @@ namespace ShaderPlayground
         /// </summary>
         protected override void LoadContent()
         {
+            GUIControl.Initialize(GameSettings.g_ScreenWidth, GameSettings.g_ScreenHeight);
             _screenManager.Load(Content);
             _screenManager.Initialize(GraphicsDevice);
         }

@@ -10,6 +10,16 @@ namespace ShaderPlayground.HelperSuite.GUI
 
         protected List<GUIElement> _children = new List<GUIElement>();
 
+        public GUIList(Vector2 position, GUIStyle guiStyle) : this(
+            position: position, 
+            defaultDimensions: guiStyle.DimensionsStyle, 
+            layer: 0, 
+            alignment: guiStyle.GuiAlignmentStyle, 
+            ParentDimensions: guiStyle.ParentDimensionsStyle)
+        {
+            
+        }
+
         /// <summary>
         /// A list has a unified width/height of the elements. Each element is rendered below the other one
         /// </summary>

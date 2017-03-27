@@ -1,4 +1,13 @@
 ﻿GUI LOG
 
-Version 1.0
+Requirements:
+			MonospaceFont = Fonts/monospace
+
+			images:
+            colorPickerSmall = Graphical User Interface/colorpickersmall
+            colorPickerBig = Graphical User Interface/colorpickerBig
+
+Version 1.1
+
+1.1 - Style added, now Elements can be created with Element(style, other properties...) to save time and have a unified appearance.
 

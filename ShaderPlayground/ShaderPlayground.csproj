@@ -43,29 +43,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Controls\Input.cs" />
-    <Compile Include="HelperSuite\ContentLoader\ThreadSafeContentManager.cs" />
-    <Compile Include="HelperSuite\GUIHelper\GUIContentLoader.cs" />
-    <Compile Include="HelperSuite\GUIRenderer\GUIRenderer.cs" />
-    <Compile Include="HelperSuite\GUIRenderer\Helper\MngStringBuilder.cs" />
-    <Compile Include="HelperSuite\GUIRenderer\Helper\QuadRendererColor.cs" />
-    <Compile Include="HelperSuite\GUI\GUIBlock.cs" />
-    <Compile Include="HelperSuite\GUI\GUICanvas.cs" />
-    <Compile Include="HelperSuite\GUI\GUIColorPicker.cs" />
-    <Compile Include="HelperSuite\GUI\GUIList.cs" />
-    <Compile Include="HelperSuite\GUI\GuiListToggle.cs" />
-    <Compile Include="HelperSuite\GUI\GuiListToggleScroll.cs" />
-    <Compile Include="HelperSuite\GUI\GuiSliderFloatText.cs" />
-    <Compile Include="HelperSuite\GUI\GuiSliderFloat.cs" />
-    <Compile Include="HelperSuite\GUI\GUIStyle.cs" />
-    <Compile Include="HelperSuite\GUI\GUITextBlock.cs" />
-    <Compile Include="HelperSuite\GUI\GUITextBlockButton.cs" />
-    <Compile Include="HelperSuite\GUI\GuiTextBlockLoadDialog.cs" />
-    <Compile Include="HelperSuite\GUI\GUITextBlockToggle.cs" />
     <Compile Include="Helpers\FastRand.cs" />
     <Compile Include="Helpers\FullScreenQuadRenderer.cs" />
     <Compile Include="Helpers\MeshLoader.cs" />
     <Compile Include="Helpers\QuadRenderer.cs" />
-    <Compile Include="Screens\ParticlePhysics\ParticlePhysicsGUIRenderer.cs" />
+    <Compile Include="Screens\ParticlePhysics\ParticlePhysicsGUILogic.cs" />
     <Compile Include="Screens\ParticlePhysics\ParticlePhysicsLogic.cs" />
     <Compile Include="Screens\ParticlePhysics\ParticlePhysicsRenderer.cs" />
     <Compile Include="Screens\ParticlePhysics\ShaderModules\ParticlePhysicsShader.cs" />
@@ -161,12 +143,17 @@
     <Content Include="Content\mgcb\runtimetexture.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HelperSuite\GUI log.txt" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DeferredEngine\HelperSuite\HelperSuite.csproj">
+      <Project>{bbe5a22c-4774-4066-a51c-d689b1e8a2e6}</Project>
+      <Name>HelperSuite</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

@@ -40,6 +40,23 @@ namespace ShaderPlayground.HelperSuite.GUI
         protected Vector2 _textBorder = new Vector2(10,1);
         private Vector2 _dimensions;
 
+        public GUITextBlock(GUIStyle guitStyle, String text) : this(
+            position: Vector2.Zero,
+            dimensions: guitStyle.DimensionsStyle,
+            text: text,
+            font: guitStyle.TextFontStyle,
+            blockColor: guitStyle.BlockColorStyle,
+            textColor: guitStyle.TextColorStyle,
+            textAlignment: guitStyle.TextButtonAlignmentStyle,
+            textBorder: guitStyle.TextBorderStyle,
+            layer: 0,
+            alignment: guitStyle.GuiAlignmentStyle,
+            parentDimensions: guitStyle.ParentDimensionsStyle)
+        { }
+
+        /// <summary>
+        /// A default colored block with text on top
+        /// </summary>
         public GUITextBlock(Vector2 position, Vector2 dimensions, String text, SpriteFont font, Color blockColor, Color textColor, GUIStyle.TextAlignment textAlignment = GUIStyle.TextAlignment.Left, Vector2 textBorder = default(Vector2), int layer = 0, GUIStyle.GUIAlignment alignment = GUIStyle.GUIAlignment.None, Vector2 parentDimensions = default(Vector2)) : base(position,dimensions, blockColor, layer, alignment, parentDimensions)
         {
             _text = new StringBuilder(text);

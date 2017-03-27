@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using HelperSuite.GUI;
+using HelperSuite.GUIRenderer;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using ShaderPlayground.Controls;
-using ShaderPlayground.HelperSuite.GUI;
-using ShaderPlayground.HelperSuite.GUIRenderer;
 using ShaderPlayground.Settings;
 
 namespace ShaderPlayground.Screens.MainMenu

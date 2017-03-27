@@ -21,6 +21,20 @@ namespace ShaderPlayground.HelperSuite.GUI
         public object[] ButtonMethodArgs = null;
         public Object ButtonObject;
 
+        public GUITextBlockButton(GUIStyle guitStyle, String text) : this(
+            position: Vector2.Zero,
+            dimensions: guitStyle.DimensionsStyle,
+            text: text,
+            font: guitStyle.TextFontStyle,
+            blockColor: guitStyle.BlockColorStyle,
+            textColor: guitStyle.TextColorStyle,
+            textAlignment: guitStyle.TextButtonAlignmentStyle,
+            textBorder: guitStyle.TextBorderStyle,
+            layer: 0,
+            alignment: guitStyle.GuiAlignmentStyle,
+            parentDimensions: guitStyle.ParentDimensionsStyle)
+        { }
+
         public GUITextBlockButton(Vector2 position, Vector2 dimensions, String text, SpriteFont font, Color blockColor, Color textColor, GUIStyle.TextAlignment textAlignment = GUIStyle.TextAlignment.Center, Vector2 textBorder = default(Vector2), int layer = 0, GUIStyle.GUIAlignment alignment = GUIStyle.GUIAlignment.None, Vector2 parentDimensions = default(Vector2)) : base(position, dimensions, text, font, blockColor, textColor, textAlignment, textBorder, layer)
         {
 

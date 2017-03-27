@@ -1,16 +1,19 @@
 ﻿using System;
+using HelperSuite.GUIHelper;
+using HelperSuite.GUIRenderer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ShaderPlayground.Controls;
 using ShaderPlayground.Helpers;
-using ShaderPlayground.HelperSuite.GUIRenderer;
 using ShaderPlayground.Screens.Bokeh;
 using ShaderPlayground.Screens.Debug;
 using ShaderPlayground.Screens.MainMenu;
 using ShaderPlayground.Screens.ParticlePhysics;
+using ShaderPlayground.Screens.Pixelizer;
 using ShaderPlayground.Screens.RadialBlur;
+using ShaderPlayground.Settings;
 
 namespace ShaderPlayground.Screens
 {
@@ -69,7 +72,7 @@ namespace ShaderPlayground.Screens
             _currentState = ScreenStates.MainMenu;
             NextState = ScreenStates.MainMenu;
 
-            _guiRenderer.Initialize(graphics);
+            _guiRenderer.Initialize(graphics, GameSettings.g_ScreenWidth, GameSettings.g_ScreenHeight);
 
             _mainMenuLogic.Initialize(this);
 
@@ -133,13 +136,15 @@ namespace ShaderPlayground.Screens
             //Switch States!
             if (_currentState != NextState)
             {
-                _transitionManager.Begin(800, _currentState);
+                _transitionManager.Begin(2000, _currentState);
                 _currentState = NextState;
             }
            
             _transitionManager.Update(gameTime);
             
             Input.Update(gameTime);
+            GUIControl.Update(Input.mouseLastState, Input.mouseState);
+
             switch (_currentState)
             {
                 case ScreenStates.MainMenu:
@@ -231,6 +236,7 @@ namespace ShaderPlayground.Screens
 
         public void UpdateResolution()
         {
+            GUIControl.UpdateResolution(GameSettings.g_ScreenWidth, GameSettings.g_ScreenHeight);
             _mainMenuLogic.UpdateResolution();
         }
     }

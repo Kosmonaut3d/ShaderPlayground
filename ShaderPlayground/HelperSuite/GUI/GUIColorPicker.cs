@@ -33,9 +33,17 @@ namespace ShaderPlayground.HelperSuite.GUI
         private SpriteFont _font;
         private StringBuilder _colorString;
 
+        public GUIColorPicker(GUIStyle guiStyle) : this(
+            position: Vector2.Zero, 
+            dimensions: new Vector2(guiStyle.DimensionsStyle.X,200), 
+            blockColor: guiStyle.BlockColorStyle, 
+            font: guiStyle.TextFontStyle, 
+            layer: 0, 
+            alignment: guiStyle.GuiAlignmentStyle, 
+            ParentDimensions: guiStyle.ParentDimensionsStyle)
+        { }
 
-
-        public GUIColorPicker(Vector2 position, Vector2 dimensions, Color color, SpriteFont font, int layer = 0, GUIStyle.GUIAlignment alignment = GUIStyle.GUIAlignment.None, Vector2 ParentDimensions = new Vector2()) : base(position, dimensions, color, layer, alignment, ParentDimensions)
+        public GUIColorPicker(Vector2 position, Vector2 dimensions, Color blockColor, SpriteFont font, int layer = 0, GUIStyle.GUIAlignment alignment = GUIStyle.GUIAlignment.None, Vector2 ParentDimensions = new Vector2()) : base(position, dimensions, blockColor, layer, alignment, ParentDimensions)
         {
             _font = font;
             _colorString = new StringBuilder(20);

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using HelperSuite.ContentLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ShaderPlayground.Helpers;
-using ShaderPlayground.HelperSuite.ContentLoader;
 using ShaderPlayground.Settings;
 
 namespace ShaderPlayground.Screens.Bokeh.ShaderModules

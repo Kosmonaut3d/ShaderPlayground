@@ -1,12 +1,11 @@
 ﻿using System;
+using HelperSuite.GUI;
+using HelperSuite.GUIHelper;
+using HelperSuite.GUIRenderer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ShaderPlayground.Controls;
-using ShaderPlayground.HelperSuite.GUI;
-using ShaderPlayground.HelperSuite.GUIHelper;
-using ShaderPlayground.HelperSuite.GUIRenderer;
-using ShaderPlayground.HelperSuite.GUIRenderer.Helper;
 using ShaderPlayground.Settings;
 
 namespace ShaderPlayground.Screens.RadialBlur
@@ -41,7 +40,7 @@ namespace ShaderPlayground.Screens.RadialBlur
                 ButtonObject = this,
                 ButtonMethod = typeof(RadialBlurGUILogic).GetMethod("MainMenu")
             });
-
+            
 
             Texture2D reference = null;
             GuiTextBlockLoadDialog textureLoader;
