@@ -41,6 +41,9 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ShaderPlayground.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Controls\Input.cs" />
     <Compile Include="Helpers\FastRand.cs" />
@@ -150,7 +153,7 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DeferredEngine\HelperSuite\HelperSuite.csproj">
+    <ProjectReference Include="..\..\DeferredEngine-master\HelperSuite\HelperSuite.csproj">
       <Project>{bbe5a22c-4774-4066-a51c-d689b1e8a2e6}</Project>
       <Name>HelperSuite</Name>
     </ProjectReference>

@@ -136,17 +136,17 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 
 	float dist = length(value);
 
-	position += -dist * 100 * (1 - Timer) - Timer;
+	//position += -dist * 100 * (1 - Timer) - Timer;
 
 	while (position < 0) position += PI2;
     while (position > PI2) position -= PI2;
 
 	float a = 1;
 
-	const float sections = 1;
+	const float sections = 4;
 	const float sectionsinv = 1 / sections;
 
-	float run = Timer*(1 /*+ border * sections*/);
+	float run = Timer*(1 + border * sections);
 	run *= sectionsinv;
 
 	position *= PI2inv;
@@ -155,12 +155,10 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 
 	if (position < run)
 	{
-		/*position -= run - border;
+		position -= run - border;
 
-		a = saturate(position / border);*/
-		a = 0;
+		a = saturate(position / border);
 	}
-
 
 	return float4(colorSample.rgb , a);
 }

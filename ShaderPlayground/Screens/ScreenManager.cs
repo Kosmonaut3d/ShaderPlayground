@@ -136,7 +136,7 @@ namespace ShaderPlayground.Screens
             //Switch States!
             if (_currentState != NextState)
             {
-                _transitionManager.Begin(2000, _currentState);
+                _transitionManager.Begin(800, _currentState);
                 _currentState = NextState;
             }
            
