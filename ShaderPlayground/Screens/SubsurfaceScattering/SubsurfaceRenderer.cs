@@ -4,10 +4,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using ShaderPlayground.Screens.DefaultPreset.ShaderModules;
+using ShaderPlayground.Screens.SubsurfaceScattering.ShaderModules;
 
 namespace ShaderPlayground.Screens.DefaultPreset
 {
-    public class DefaultRenderer
+    public class SubsurfaceRenderer
     {
         private GraphicsDevice _graphics;
 
@@ -15,24 +16,23 @@ namespace ShaderPlayground.Screens.DefaultPreset
 
         public SpriteBatch _spriteBatch;
 
-        public DefaultShader _defaultShader;
+        public SubsurfaceScatteringShader _ssShader;
         private Texture2D DefaultTexture2D;
 
 
         public void Initialize(GraphicsDevice graphics)
         {
-            DefaultTexture2D = null;
             _graphics = graphics;
 
-            _defaultShader.Initialize(graphics);
+            _ssShader.Initialize(graphics);
 
             _spriteBatch = new SpriteBatch(graphics);
         }
 
         public void Load(ContentManager content)
         {
-            _defaultShader = new DefaultShader();
-            _defaultShader.Load(content, "shaders/Default/Default");
+            _ssShader = new SubsurfaceScatteringShader();
+            _ssShader.Load(content, "shaders/Subsurface/SubsurfaceScattering");
         }
 
         public void Draw(GameTime gameTime, RenderTarget2D outputRT)

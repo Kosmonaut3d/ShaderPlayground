@@ -39,9 +39,7 @@ namespace ShaderPlayground.Screens.Pixelizer
                 ButtonObject = this,
                 ButtonMethod = this.GetType().GetMethod("MainMenu")
             });
-
-
-            Texture2D reference = null;
+            
 
             baseList.AddElement(new GUITextBlockToggle(Vector2.Zero, new Vector2(200, 35), "Random points", GUIRenderer.MonospaceFont, Color.Gray, Color.White)
             {

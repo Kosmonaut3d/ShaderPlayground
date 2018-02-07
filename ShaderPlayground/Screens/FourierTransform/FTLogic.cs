@@ -2,13 +2,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
-namespace ShaderPlayground.Screens.DefaultPreset
+namespace ShaderPlayground.Screens.FourierTransform
 {
-    public class DefaultLogic
+    public class FTLogic
     {
-        private DefaultGuiRenderer _guiGuiRenderer;
+        private FTGuiRenderer _guiGuiRenderer;
 
-        public void Initialize(ScreenManager screenManager, DefaultRenderer renderer)
+        public void Initialize(ScreenManager screenManager, FTRenderer renderer)
         {
             
             _guiGuiRenderer.Initialize(screenManager, renderer);
@@ -26,7 +26,7 @@ namespace ShaderPlayground.Screens.DefaultPreset
 
         public void Load(ContentManager content)
         {
-            _guiGuiRenderer = new DefaultGuiRenderer();
+            _guiGuiRenderer = new FTGuiRenderer();
             _guiGuiRenderer.Load(content);
         }
     }

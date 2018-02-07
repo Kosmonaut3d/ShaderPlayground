@@ -9,6 +9,8 @@ using ShaderPlayground.Controls;
 using ShaderPlayground.Helpers;
 using ShaderPlayground.Screens.Bokeh;
 using ShaderPlayground.Screens.Debug;
+using ShaderPlayground.Screens.DefaultPreset;
+using ShaderPlayground.Screens.FourierTransform;
 using ShaderPlayground.Screens.MainMenu;
 using ShaderPlayground.Screens.ParticlePhysics;
 using ShaderPlayground.Screens.Pixelizer;
@@ -43,6 +45,12 @@ namespace ShaderPlayground.Screens
         private ParticlePhysicsLogic _particlePhysicsLogic;
         private ParticlePhysicsRenderer _particlePhysicsRenderer;
 
+        private SubsurfaceLogic _ssLogic;
+        private SubsurfaceRenderer _ssRenderer;
+        
+        private FTLogic _ftLogic;
+        private FTRenderer _ftRenderer;
+
         ///////
 
         private MeshLoader _meshLoader;
@@ -60,7 +68,9 @@ namespace ShaderPlayground.Screens
             Pixelizer,
             Exit,
             Bokeh,
-            ParticlePhysics
+            ParticlePhysics,
+            Subsurface, 
+            FourierTransform
         }
 
         public void Initialize(GraphicsDevice graphics)
@@ -88,6 +98,13 @@ namespace ShaderPlayground.Screens
             _particlePhysicsLogic.Initialize(this, _particlePhysicsRenderer);
             _particlePhysicsRenderer.Initialize(graphics);
 
+            _ssLogic.Initialize(this, _ssRenderer);
+            _ssRenderer.Initialize(graphics);
+
+            _ftLogic.Initialize(this, _ftRenderer);
+            _ftRenderer.Initialize(graphics);
+           
+
             _transitionManager.Initialize(graphics, this);
 
         }
@@ -96,6 +113,9 @@ namespace ShaderPlayground.Screens
         {
             _debugScreen = new DebugScreen();
             _debugScreen.LoadContent(content);
+
+            _transitionManager = new TransitionManager();
+            _transitionManager.Load(content);
 
             _guiRenderer = new GUIRenderer();
             _guiRenderer.Load(content);
@@ -124,8 +144,15 @@ namespace ShaderPlayground.Screens
             _particlePhysicsRenderer = new ParticlePhysicsRenderer();
             _particlePhysicsRenderer.Load(content);
 
-            _transitionManager = new TransitionManager();
-            _transitionManager.Load(content);
+            _ssLogic = new SubsurfaceLogic();
+            _ssLogic.Load(content);
+            _ssRenderer = new SubsurfaceRenderer();
+            _ssRenderer.Load(content);
+
+            _ftLogic = new FTLogic();
+            _ftLogic.Load(content);
+            _ftRenderer = new FTRenderer();
+            _ftRenderer.Load(content);
 
             _meshLoader = new MeshLoader();
             _meshLoader.Load(content);
@@ -172,6 +199,16 @@ namespace ShaderPlayground.Screens
                         _particlePhysicsLogic.Update(gameTime);
                         break;
                     }
+                case ScreenStates.Subsurface:
+                    {
+                        _ssLogic.Update(gameTime);
+                        break;
+                    }
+                case ScreenStates.FourierTransform:
+                {
+                    _ftLogic.Update(gameTime);
+                    break;
+                }
 
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -227,6 +264,18 @@ namespace ShaderPlayground.Screens
                         _guiRenderer.Draw(_particlePhysicsLogic.GetCanvas());
                         break;
                     }
+                case ScreenStates.Subsurface:
+                {
+                    _ssRenderer.Draw(gameTime, renderTarget);
+                    _guiRenderer.Draw(_ssLogic.GetCanvas());
+                    break;
+                }
+                case ScreenStates.FourierTransform:
+                {
+                    _ftRenderer.Draw(gameTime, renderTarget);
+                    _guiRenderer.Draw(_ftLogic.GetCanvas());
+                    break;
+                }
                 default:
                     throw new ArgumentOutOfRangeException();
             }

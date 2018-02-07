@@ -30,7 +30,7 @@ namespace ShaderPlayground
             graphics.PreferredBackBufferWidth = GameSettings.g_ScreenWidth;
             graphics.PreferredBackBufferHeight = GameSettings.g_ScreenHeight;
 
-            graphics.PreferMultiSampling = true;
+            graphics.PreferMultiSampling = false;
             
             //graphics.SynchronizeWithVerticalRetrace = false;
             //IsFixedTimeStep = false;

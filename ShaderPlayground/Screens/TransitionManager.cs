@@ -51,7 +51,6 @@ namespace ShaderPlayground.Screens
         public void Load(ContentManager content)
         {
             _shader = content.Load<Effect>("Shaders/Transition/TransitionShader");
-
             _passShear = _shader.Techniques["Shear"].Passes[0];
             _passSpiral = _shader.Techniques["Spiral"].Passes[0];
             _passCircle = _shader.Techniques["Circle"].Passes[0];

@@ -50,11 +50,19 @@
     <Compile Include="Helpers\FullScreenQuadRenderer.cs" />
     <Compile Include="Helpers\MeshLoader.cs" />
     <Compile Include="Helpers\QuadRenderer.cs" />
+    <Compile Include="Screens\FourierTransform\FourierTransforms\DFT.cs" />
+    <Compile Include="Screens\FourierTransform\FTGuiRenderer.cs" />
+    <Compile Include="Screens\FourierTransform\FTLogic.cs" />
+    <Compile Include="Screens\FourierTransform\FTRenderer.cs" />
+    <Compile Include="Screens\SubsurfaceScattering\SubsurfaceGUIRenderer.cs" />
+    <Compile Include="Screens\SubsurfaceScattering\SubsurfaceLogic.cs" />
+    <Compile Include="Screens\SubsurfaceScattering\SubsurfaceRenderer.cs" />
+    <Compile Include="Screens\SubsurfaceScattering\ShaderModules\SubsurfaceScatteringShader.cs" />
     <Compile Include="Screens\ParticlePhysics\ParticlePhysicsGUILogic.cs" />
     <Compile Include="Screens\ParticlePhysics\ParticlePhysicsLogic.cs" />
     <Compile Include="Screens\ParticlePhysics\ParticlePhysicsRenderer.cs" />
     <Compile Include="Screens\ParticlePhysics\ShaderModules\ParticlePhysicsShader.cs" />
-    <Compile Include="Screens\DefaultPreset\DefaultGUIRenderer.cs" />
+    <Compile Include="Screens\DefaultPreset\DefaultGuiRenderer.cs" />
     <Compile Include="Screens\DefaultPreset\DefaultLogic.cs" />
     <Compile Include="Screens\DefaultPreset\DefaultRenderer.cs" />
     <Compile Include="Screens\DefaultPreset\ShaderModules\DefaultShader.cs" />
@@ -83,11 +91,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MonoGame.Framework, Version=3.7.0.1156, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Monogame\MonoGame.Framework\bin\Windows\AnyCPU\Debug\MonoGame.Framework.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>

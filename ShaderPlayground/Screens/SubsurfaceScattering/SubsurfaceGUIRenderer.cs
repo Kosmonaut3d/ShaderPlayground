@@ -7,31 +7,29 @@ using Microsoft.Xna.Framework.Graphics;
 using ShaderPlayground.Controls;
 using ShaderPlayground.Settings;
 
-namespace ShaderPlayground.Screens.ParticlePhysics
+namespace ShaderPlayground.Screens.DefaultPreset
 {
-    public class ParticlePhysicsGUILogic
+    public class SubsurfaceGUIRenderer
     {
         private ScreenManager _screenManager;
 
         private GUICanvas screenCanvas;
 
         private GUIContentLoader _guiContentLoader;
+        
+        private SubsurfaceRenderer _renderer;
 
-        private ParticlePhysicsRenderer _renderer;
-
-        public void Initialize(ScreenManager screenManager, ParticlePhysicsRenderer renderer)
+        public void Initialize(ScreenManager screenManager, SubsurfaceRenderer renderer)
         {
             _renderer = renderer;
             _screenManager = screenManager;
 
             screenCanvas = new GUICanvas(Vector2.Zero, new Vector2(GameSettings.g_ScreenWidth, GameSettings.g_ScreenHeight), 0, GUIStyle.GUIAlignment.None);
 
-            GUIStyle style = new GUIStyle(new Vector2(200, 35), GUIRenderer.MonospaceFont, Color.Gray, Color.White, Color.White, GUIStyle.GUIAlignment.None, GUIStyle.TextAlignment.Left, GUIStyle.TextAlignment.Center, Vector2.Zero, screenCanvas.Dimensions);
-
             var baseList = new GuiListToggle(Vector2.Zero, new Vector2(200, 30), 0, GUIStyle.GUIAlignment.TopRight, screenCanvas.Dimensions);
             screenCanvas.AddElement(baseList);
             
-            baseList.AddElement(new GUITextBlockButton(style, "return")
+            baseList.AddElement(new GUITextBlockButton(Vector2.Zero, new Vector2(200, 35), "return", GUIRenderer.MonospaceFont, Color.Gray, Color.White)
             {
                 ButtonObject = this,
                 ButtonMethod = this.GetType().GetMethod("MainMenu")
@@ -39,36 +37,9 @@ namespace ShaderPlayground.Screens.ParticlePhysics
 
             
             GuiTextBlockLoadDialog textureLoader;
-            baseList.AddElement(textureLoader = new GuiTextBlockLoadDialog(style, "image: ", _guiContentLoader, GuiTextBlockLoadDialog.ContentType.Texture2D)
+            baseList.AddElement(textureLoader = new GuiTextBlockLoadDialog(Vector2.Zero, new Vector2(200, 35), "image: ", _guiContentLoader, GuiTextBlockLoadDialog.ContentType.Texture2D,  GUIRenderer.MonospaceFont, Color.Gray, Color.White)
             );
 
-            baseList.AddElement(new GuiSliderFloatText(style, 0, 1, 2, "K: ")
-            {
-                SliderObject = renderer,
-                SliderField = renderer.GetType().GetField("SpringConstant"),
-                SliderValue = (float)renderer.GetType().GetField("SpringConstant").GetValue(renderer)
-            });
-
-            baseList.AddElement(new GuiSliderFloatText(style, 0, 1, 2, "Dampening: ")
-            {
-                SliderObject = renderer,
-                SliderField = renderer.GetType().GetField("DampeningConstant"),
-                SliderValue = (float)renderer.GetType().GetField("DampeningConstant").GetValue(renderer)
-            });
-
-            baseList.AddElement(new GuiSliderIntText(style, 1, 10, 1, "Scale: ")
-            {
-                SliderObject = renderer,
-                SliderField = renderer.GetType().GetField("TestInt"),
-                SliderValue = (int)renderer.GetType().GetField("TestInt").GetValue(renderer)
-            });
-
-            //baseList.AddElement(new GuiSliderFloatText(Vector2.Zero, new Vector2(200, 55), new Vector2(200, 20), 0, 1, "test", GUIRenderer.MonospaceFont, Color.Gray, Color.White)
-            //{
-            //    SliderObject = renderer,
-            //    SliderField = renderer.GetType().GetField("TestFloat"),
-            //    SliderValue = (float)renderer.GetType().GetField("TestFloat").GetValue(renderer)
-            //});
 
             //baseList.AddElement(_sizeBlock = new GUITextBlock(Vector2.Zero, new Vector2(200, 25), "Intensity: ", GUIRenderer.MonospaceFont, Color.Gray, Color.White));
             //baseList.AddElement(new GuiSliderFloat(Vector2.Zero, new Vector2(200, 35), 2, 20, Color.Gray, Color.White)
@@ -77,7 +48,7 @@ namespace ShaderPlayground.Screens.ParticlePhysics
             //    SliderField = typeof(DefaultRenderer).GetField("BokehSize"),
             //    SliderValue = (float)typeof(DefaultRenderer).GetField("BokehSize").GetValue(renderer)
             //});
-
+            
             renderer._backgroundTextureLoader = textureLoader;
             
             baseList.ParentResized(screenCanvas.Dimensions);

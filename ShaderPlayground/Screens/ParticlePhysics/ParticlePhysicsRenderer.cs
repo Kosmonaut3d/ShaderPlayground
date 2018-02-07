@@ -23,7 +23,6 @@ namespace ShaderPlayground.Screens.ParticlePhysics
         private Texture2D DefaultTexture2D;
         private Texture2D _shapePentagon;
         private RenderTarget2D _renderTarget0;
-        private Texture2D _baseImage;
         
         public float TestFloat = 1;
         public int TestInt = 10;
@@ -51,7 +50,7 @@ namespace ShaderPlayground.Screens.ParticlePhysics
             _bokehShader.Load(content, "Shaders/bokeh/bokeh");
             
             _shapePentagon = content.Load<Texture2D>("shaders/bokeh/ShapePentagon");
-            _baseImage = content.Load<Texture2D>("carred");
+            DefaultTexture2D = content.Load<Texture2D>("carred");
 
 
         }
@@ -64,7 +63,7 @@ namespace ShaderPlayground.Screens.ParticlePhysics
 
             
 
-            _ParticlePhysicsShader.Draw(outputRT, _baseImage, Input.GetMousePosition().ToVector2(), TestInt, SpringConstant, DampeningConstant);
+            _ParticlePhysicsShader.Draw(outputRT, input, Input.GetMousePosition().ToVector2(), TestInt, SpringConstant, DampeningConstant);
            
             //_spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Opaque, SamplerState.PointWrap);
 

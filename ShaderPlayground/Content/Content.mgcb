@@ -5,13 +5,25 @@
 /intermediateDir:obj/$(Platform)
 /platform:Windows
 /config:
-/profile:Reach
+/profile:HiDef
 /compress:False
 
 #-------------------------------- References --------------------------------#
 
 
 #---------------------------------- Content ---------------------------------#
+
+#begin carred.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:carred.png
 
 #begin Fonts/defaultfont.spritefont
 /importer:FontDescriptionImporter
@@ -51,36 +63,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphical User Interface/colorpickersmall.png
 
-#begin Shaders/Transition/TransitionShader.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:Shaders/Transition/TransitionShader.fx
-
-#begin Shaders/RadialBlur/RadialBlur.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:Shaders/RadialBlur/RadialBlur.fx
-
-#begin carred.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:carred.png
-
-#begin Shaders/Pixelizer/Pixelizer.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:Shaders/Pixelizer/Pixelizer.fx
-
 #begin Shaders/Bokeh/Bokeh.fx
 /importer:EffectImporter
 /processor:EffectProcessor
@@ -98,6 +80,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Shaders/Bokeh/shapeCircle.png
+
+#begin Shaders/Bokeh/shapeHexagon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=True
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Shaders/Bokeh/shapeHexagon.png
 
 #begin Shaders/Bokeh/shapePentagon.png
 /importer:TextureImporter
@@ -123,21 +117,33 @@
 /processorParam:TextureFormat=Color
 /build:Shaders/Bokeh/shapeStar.png
 
-#begin Shaders/Bokeh/shapeHexagon.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=True
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Shaders/Bokeh/shapeHexagon.png
-
 #begin Shaders/ParticlePhysics/ParticlePhysics.fx
 /importer:EffectImporter
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Shaders/ParticlePhysics/ParticlePhysics.fx
+
+#begin Shaders/Pixelizer/Pixelizer.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/Pixelizer/Pixelizer.fx
+
+#begin Shaders/RadialBlur/RadialBlur.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/RadialBlur/RadialBlur.fx
+
+#begin Shaders/Subsurface/SubsurfaceScattering.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/Subsurface/SubsurfaceScattering.fx
+
+#begin Shaders/Transition/TransitionShader.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/Transition/TransitionShader.fx
 

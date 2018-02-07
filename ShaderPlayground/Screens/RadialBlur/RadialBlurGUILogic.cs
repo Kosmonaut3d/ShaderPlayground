@@ -41,8 +41,6 @@ namespace ShaderPlayground.Screens.RadialBlur
                 ButtonMethod = typeof(RadialBlurGUILogic).GetMethod("MainMenu")
             });
             
-
-            Texture2D reference = null;
             GuiTextBlockLoadDialog textureLoader;
             baseList.AddElement(textureLoader = new GuiTextBlockLoadDialog(Vector2.Zero, new Vector2(200, 35), "image: ", _guiContentLoader, GuiTextBlockLoadDialog.ContentType.Texture2D,  GUIRenderer.MonospaceFont, Color.Gray, Color.White)
             );
